@@ -1,0 +1,7 @@
+FROM nodered/node-red-docker
+SHELL ["/bin/bash", "-c"]
+USER root 
+RUN usermod -a -G dialout node-red
+USER node-red
+ADD node-red/package.json /usr/src/node-red/
+RUN cd /usr/src/node-red && npm install

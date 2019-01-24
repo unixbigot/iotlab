@@ -1,0 +1,5 @@
+FROM arm32v7/debian:jessie
+WORKDIR /app
+COPY filebeat /app/
+COPY filebeat.yml /app
+ENTRYPOINT ["./filebeat"]

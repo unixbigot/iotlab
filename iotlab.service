@@ -1,0 +1,19 @@
+#
+# Copy this to /etc/systemd/system/ and run 
+#
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable iotlab.service
+#   sudo service iotlab start
+#
+[Unit]
+Description=Docker constellation to host IoT experiments within dockerised node-red
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/local/bin/docker-compose -f /opt/iotlab/docker-compose.yml up   
+ExecStop=/usr/local/bin/docker-compose  -f /opt/iotlab/docker-compose.yml stop
+
+[Install]
+WantedBy=default.target

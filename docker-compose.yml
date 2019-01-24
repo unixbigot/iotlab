@@ -1,0 +1,37 @@
+version: "3"
+services:
+  broker:
+    container_name: broker
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 9883:9883
+    # NOTE: comment out volumes for deploy, use config inside container 
+    volumes:
+      - $PWD/mosquitto-conf/:/mqtt/config/
+    build:
+      dockerfile: Dockerfile-broker-${ARCH:-x86}
+      context: .
+  #filebeat:
+  #  container_name: filebeat
+  #  volumes:
+  #    - $PWD/filebeat-conf/config/filebeat.yml:/usr/share/filebeat/config/filebeat.yml
+  #    - /usr/share/filebeat/data
+  #  build:
+  #    dockerfile: Dockerfile-filebeat-${ARCH:-x86}
+  #    context: .
+  node-red:
+    # see https://hub.docker.com/r/nodered/node-red-docker/
+    container_name: node-red
+    privileged: true
+    volumes:
+      - ./node-red:/data
+      - ./certs:/certs
+    links:
+      - broker
+    ports:
+      - "80:1880"
+    build:
+      dockerfile: Dockerfile-nodered-${ARCH:-x86}
+      context: .
+    
