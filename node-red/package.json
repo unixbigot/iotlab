@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "node-red": "0.19.5",
+    "node-red-contrib-color-convert": "0.0.1",
     "node-red-contrib-elasticsearchcdb": "0.0.1",
     "node-red-contrib-onvif": "0.0.2",
     "node-red-contrib-os": "~0.1.7",
