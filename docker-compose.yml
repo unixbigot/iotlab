@@ -29,9 +29,24 @@ services:
       - ./certs:/certs
     links:
       - broker
-    ports:
-      - "80:1880"
     build:
       dockerfile: Dockerfile-nodered-${ARCH:-x86}
       context: .
+  nginx:
+    # see https://store.docker.com/images/nginx?tab=description
+    image: nginx
+    container_name: nginx
+    restart: unless-stopped
+    links:
+      - node-red
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/certs
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - SERVER:${SERVER:-iotlab.local}
+    command: nginx -g 'daemon off;'
     
