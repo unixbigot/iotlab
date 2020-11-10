@@ -6,9 +6,11 @@ services:
       - 1883:1883
       - 8883:8883
       - 9883:9883
+      - 18883:18883
     # NOTE: comment out volumes for deploy, use config inside container 
     volumes:
       - $PWD/mosquitto-conf/:/mqtt/config/
+      - $PWD/mosquitto-data/:/mqtt/data/
     build:
       dockerfile: Dockerfile-broker-${ARCH:-x86}
       context: .
