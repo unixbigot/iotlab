@@ -20,6 +20,7 @@ nuke:
 
 fixperms:
 	sudo chown -R 1001 node-red
+	sudo chmod -R g+w node-red
 
 config:
 	@[ -e config.inc ] || ln -s config-${ENVIRONMENT}.inc config.inc
