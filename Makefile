@@ -1,4 +1,4 @@
-SERVICE=iot-console
+SERVICE=iotlab
 RUNDIR=/opt/accelerando/$(SERVICE)
 SHELL=/bin/bash
 ARCH?=arm
@@ -34,6 +34,7 @@ images: installdeps
 	docker-compose build
 
 install: installdeps
+	if grep CHANGEME $(SERVICE).service >/dev/null ; then echo "Please see CHANGEME in $(SERVICE).service" ; exit 1 ; fi
 	sudo cp $(SERVICE).service /etc/systemd/system/
 	sudo systemctl daemon-reload
 	sudo systemctl enable $(SERVICE)
