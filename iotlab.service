@@ -11,6 +11,8 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+Environment="SERVER=iotlab.accelerando.io"
+WorkingDirectory=/opt/iotlab
 Restart=always
 ExecStart=/usr/local/bin/docker-compose -f /opt/iotlab/docker-compose.yml up   
 ExecStop=/usr/local/bin/docker-compose  -f /opt/iotlab/docker-compose.yml stop
