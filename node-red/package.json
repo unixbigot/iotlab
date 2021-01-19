@@ -8,14 +8,20 @@
   },
   "dependencies": {
     "node-red": "*",
-    "node-red-contrib-ignoble": "0.0.12",
+    "node-red-contrib-color-convert": "*",
+    "node-red-contrib-elasticsearchcdb": "*",
+    "node-red-contrib-ignoble": "*",
     "node-red-contrib-modbus": "*",
+    "node-red-contrib-onvif": "*",
     "node-red-contrib-os": "*",
     "node-red-contrib-ui_list": "*",
+    "node-red-contrib-web-worldmap": "*",
     "node-red-dashboard": "*",
     "node-red-node-base64": "*",
     "node-red-node-random": "*",
     "node-red-node-serialport": "*",
-    "strftime": "^0.10.0"
+    "node-red-node-twitter": "~1.1.6",
+    "node-red-node-ui-list": "*",
+    "strftime": "*"
   }
 }
