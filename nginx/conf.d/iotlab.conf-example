@@ -1,11 +1,11 @@
-# nginx settings to serve docker-registry with password authentication
 
+#  rename this to conf.d/iotlab.conf and copy everything from /etc/letsencrypt/live/yourdomain into certs/
 upstream node-red {
 	server node-red:1880;
 }
 
 server  {
-	server_name		${SERVER};
+	server_name		iotlab.yourdomainnamegoes.here;
 	listen			80 default_server;
 	client_max_body_size	0;
 
@@ -15,7 +15,7 @@ server  {
 }
 
 server  {
-	server_name		${SERVER};
+	server_name		iotlab.yourdomainnamegoes.here;
 	listen			443 ssl;
 	ssl_certificate		/certs/fullchain.pem;
 	ssl_certificate_key	/certs/privkey.pem;
@@ -34,3 +34,4 @@ server  {
 		proxy_ssl_session_reuse on;
 	}    
 }
+

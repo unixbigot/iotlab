@@ -9,8 +9,8 @@ services:
       - 18883:18883
     # NOTE: comment out volumes for deploy, use config inside container 
     volumes:
-      - $PWD/mosquitto-conf/:/mqtt/config/
-      - $PWD/mosquitto-data/:/mqtt/data/
+      - ./mosquitto-conf/:/mqtt/config/
+      - ./mosquitto-data/:/mqtt/data/
     build:
       dockerfile: Dockerfile-broker-${ARCH:-x86}
       context: .
@@ -47,7 +47,7 @@ services:
     volumes:
       - ./certs:/certs
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
     environment:
       - SERVER:${SERVER:-iotlab.local}
     command: nginx -g 'daemon off;'
