@@ -14,23 +14,25 @@ services:
     build:
       dockerfile: Dockerfile-broker-${ARCH:-x86}
       context: .
-  node-red-trapcam:
-    container_name: node-red-trapcam
+  node-red:
+    container_name: node-red
     privileged: true
     volumes:
-      - ./node-red-trapcam:/data
+      - ./node-red:/data
       - ./certs:/certs
       - /home/test/images:/data/static/images
     links:
       - broker
-    image: iotlab_node-red
+    build:
+      dockerfile: Dockerfile-nodered-${ARCH:-x86}
+      context: .
   nginx:
     # see https://store.docker.com/images/nginx?tab=description
     image: nginx
     container_name: nginx
     restart: unless-stopped
     links:
-      - node-red-trapcam
+      - node-red
     ports:
       - "80:80"
       - "443:443"
