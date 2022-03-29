@@ -7,40 +7,30 @@ services:
       - 8883:8883
       - 9883:9883
       - 18883:18883
-    # NOTE: comment out volumes for deploy, use config inside container 
     volumes:
       - ./mosquitto-conf/:/mqtt/config/
       - ./mosquitto-data/:/mqtt/data/
+      - ./certs:/certs
     build:
       dockerfile: Dockerfile-broker-${ARCH:-x86}
       context: .
-  #filebeat:
-  #  container_name: filebeat
-  #  volumes:
-  #    - $PWD/filebeat-conf/config/filebeat.yml:/usr/share/filebeat/config/filebeat.yml
-  #    - /usr/share/filebeat/data
-  #  build:
-  #    dockerfile: Dockerfile-filebeat-${ARCH:-x86}
-  #    context: .
-  node-red:
-    # see https://hub.docker.com/r/nodered/node-red-docker/
-    container_name: node-red
+  node-red-trapcam:
+    container_name: node-red-trapcam
     privileged: true
     volumes:
-      - ./node-red:/data
+      - ./node-red-trapcam:/data
       - ./certs:/certs
+      - /home/test/images:/data/static/images
     links:
       - broker
-    build:
-      dockerfile: Dockerfile-nodered-${ARCH:-x86}
-      context: .
+    image: iotlab_node-red
   nginx:
     # see https://store.docker.com/images/nginx?tab=description
     image: nginx
     container_name: nginx
     restart: unless-stopped
     links:
-      - node-red
+      - node-red-trapcam
     ports:
       - "80:80"
       - "443:443"
